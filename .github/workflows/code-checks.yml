@@ -1,0 +1,117 @@
+name: CODE CHECKS
+
+on:
+  pull_request:
+    branches:
+      - development
+
+jobs:
+  code-quality:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["20.x"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run prettier:check
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Type check (build)
+        run: npm run build
+        continue-on-error: true
+
+      - name: Check Entity Column Types
+        run: |
+          node <<'EOF'
+          const fs = require('fs');
+          const glob = require('glob');
+
+          const entityFiles = glob.sync("src/entity/**/*.ts", { ignore: ["node_modules/**", "dist/**"] });
+          let hasError = false;
+
+          // Valid TypeORM column types
+          const validTypes = [
+            'varchar', 'text', 'int', 'bigint', 'float', 'double', 'decimal', 'boolean', 
+            'date', 'timestamp', 'time', 'json', 'jsonb', 'uuid', 'enum', 'simple-array',
+            'simple-json', 'character', 'char', 'varbinary', 'binary', 'blob', 'tinyint',
+            'smallint', 'mediumint', 'longtext', 'mediumtext', 'tinytext', 'longblob',
+            'mediumblob', 'tinyblob', 'point', 'linestring', 'polygon', 'geometry',
+            'geometrycollection', 'multipoint', 'multilinestring', 'multipolygon'
+          ];
+
+          entityFiles.forEach(file => {
+            const content = fs.readFileSync(file, 'utf8');
+            
+            // Enhanced regex to match @Column decorators with better pattern matching
+            const regex = /@Column\s*\(([\s\S]*?)\)\s*(?:\r?\n\s*)+([\w\d_]+)\s*[?:]?\s*[a-zA-Z_][a-zA-Z0-9_]*\s*[;=]/g;
+            let match;
+
+            while ((match = regex.exec(content)) !== null) {
+              const options = match[1];
+              const columnName = match[2];
+              
+              // Check if the options block contains a type definition
+              const hasTypeDefinition = /type\s*:\s*['"`]?\w+['"`]?/.test(options);
+              
+              if (!hasTypeDefinition) {
+                console.error(`❌ Error in ${file}: Column '${columnName}' is missing a type definition in its @Column decorator.`);
+                console.error(`   Fix: Add explicit type like @Column({ type: "varchar", nullable: true })`);
+                hasError = true;
+              } else {
+                // Validate that the type is a valid TypeORM type
+                const typeMatch = options.match(/type\s*:\s*['"`](\w+)['"`]/);
+                if (typeMatch) {
+                  const columnType = typeMatch[1];
+                  if (!validTypes.includes(columnType.toLowerCase())) {
+                    console.error(`❌ Error in ${file}: Column '${columnName}' has invalid TypeORM type '${columnType}'.`);
+                    console.error(`   Valid types: ${validTypes.slice(0, 10).join(', ')}...`);
+                    hasError = true;
+                  }
+                }
+              }
+            }
+
+            // Additional check for common TypeORM type inference issues
+            const lines = content.split('\n');
+            lines.forEach((line, index) => {
+              // Check for @Column without explicit type that might cause inference issues
+              if (line.includes('@Column') && !line.includes('type:') && !line.includes('@PrimaryGeneratedColumn') && !line.includes('@CreateDateColumn') && !line.includes('@UpdateDateColumn')) {
+                const nextLine = lines[index + 1];
+                if (nextLine && nextLine.includes('?:') && nextLine.includes('string')) {
+                  console.error(`❌ Warning in ${file}:${index + 2}: Column might need explicit type for TypeORM inference.`);
+                  console.error(`   Consider: @Column({ type: "varchar", nullable: true })`);
+                  console.error(`   Current: ${line.trim()}`);
+                  console.error(`   Property: ${nextLine.trim()}`);
+                }
+              }
+            });
+          });
+
+          if (hasError) {
+            console.error("\n🔧 Common fixes:");
+            console.error("   • Add explicit type: @Column({ type: 'varchar', nullable: true })");
+            console.error("   • For strings: @Column({ type: 'text' }) or @Column({ type: 'varchar' })");
+            console.error("   • For numbers: @Column({ type: 'int' }) or @Column({ type: 'bigint' })");
+            console.error("   • For booleans: @Column({ type: 'boolean' })");
+            console.error("   • For dates: @Column({ type: 'timestamp' })");
+            console.error("   • For JSON: @Column({ type: 'jsonb' })");
+            console.error("\nOne or more columns have type definition issues. Please fix them before merging.");
+            process.exit(1);
+          } else {
+            console.log("✅ All columns in entity files have proper type definitions.");
+          }
+          EOF

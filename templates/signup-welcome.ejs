@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      font-family: 'Lato', Arial, sans-serif !important;
+    }
+  </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:'Lato', Arial, sans-serif; background-color:#F3F4F6;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding:40px 0;">
+    <tr>
+      <td align="center">
+
+        <table width="650" cellpadding="0" cellspacing="0" border="0"
+          style="background-color:#FCFCFC; border-radius:8px; overflow:hidden;">
+
+          <%- include('internal-header.ejs') %>
+
+            <tr>
+              <td style="padding:0 32px 40px 32px;">
+
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+
+                  <tr>
+                    <td style="font-size:28px; font-weight:700; color:#111827; padding-bottom:24px; line-height:1.2; text-align:center;">
+                      Welcome to <%= organisationName %>! 🎉
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="font-size:16px; color:#374151; line-height:1.6; padding-bottom:16px;">
+                      Hi <%= userName %>,
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="font-size:16px; color:#374151; line-height:1.6; padding-bottom:32px;">
+                      Congratulations on successfully completing your onboarding! We're excited to officially welcome you to <span style="font-weight:600; color:#111827;"><%= organisationName %></span>. Our community is built on growth, connection, and positive impact. You're now an important part of our family, and we are happy to have you onboard.
+                    </td>
+                  </tr>
+
+                  <!-- QR Code Section -->
+                  <tr>
+                    <td style="padding-bottom:32px;">
+                      <table cellpadding="0" cellspacing="0" border="0" width="100%"
+                        style="background-color:#EFF6FF; border:1px solid #DBEAFE; border-radius:12px; padding:30px;">
+                        
+                        <tr>
+                          <td align="center" style="padding-bottom:20px;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td
+                                  style="background-color:#DBEAFE; border-radius:6px; padding:6px 12px; font-size:12px; font-weight:600; color:#1E40AF;">
+                                  Your Personal QR Code
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td width="160" style="vertical-align:top; padding-right:20px;">
+                                  <img src="data:image/png;base64,<%= qrCodeBase64 %>"
+                                    alt="QR Code"
+                                    style="width:140px; height:140px; display:block; border:2px solid #3B82F6; border-radius:8px; background-color:#FFFFFF; padding:8px;">
+                                </td>
+                                <td style="vertical-align:top;">
+                                  <table cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+                                    
+                                    <tr>
+                                      <td style="padding-bottom:15px;">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                          <tr>
+                                            <td valign="top">
+                                              <div
+                                                style="width:28px; height:28px; background-color:#DBEAFE; border-radius:50%; display:inline-block; text-align:center; line-height:28px; vertical-align:middle;">
+                                                👤
+                                              </div>
+                                            </td>
+                                            <td width="12"></td>
+                                            <td valign="top">
+                                              <table cellpadding="0" cellspacing="0" border="0">
+                                                <tr>
+                                                  <td style="font-size:12px; color:#6B7280; padding-bottom:4px;">
+                                                    Full Name
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td style="font-size:14px; color:#111827; font-weight:600;">
+                                                    <%= fullName %>
+                                                  </td>
+                                                </tr>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+
+                                    <tr>
+                                      <td style="padding-bottom:15px;">
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                          <tr>
+                                            <td valign="top">
+                                              <div
+                                                style="width:28px; height:28px; background-color:#DBEAFE; border-radius:50%; display:inline-block; text-align:center; line-height:28px; vertical-align:middle;">
+                                                📧
+                                              </div>
+                                            </td>
+                                            <td width="12"></td>
+                                            <td valign="top">
+                                              <table cellpadding="0" cellspacing="0" border="0">
+                                                <tr>
+                                                  <td style="font-size:12px; color:#6B7280; padding-bottom:4px;">
+                                                    Email Address
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td style="font-size:14px; color:#111827; font-weight:600;">
+                                                    <%= userEmail %>
+                                                  </td>
+                                                </tr>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+
+                                    <tr>
+                                      <td>
+                                        <table cellpadding="0" cellspacing="0" border="0">
+                                          <tr>
+                                            <td valign="top">
+                                              <div
+                                                style="width:28px; height:28px; background-color:#DBEAFE; border-radius:50%; display:inline-block; text-align:center; line-height:28px; vertical-align:middle;">
+                                                🏢
+                                              </div>
+                                            </td>
+                                            <td width="12"></td>
+                                            <td valign="top">
+                                              <table cellpadding="0" cellspacing="0" border="0">
+                                                <tr>
+                                                  <td style="font-size:12px; color:#6B7280; padding-bottom:4px;">
+                                                    Organisation
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td style="font-size:14px; color:#111827; font-weight:600;">
+                                                    <%= organisationName %>
+                                                  </td>
+                                                </tr>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td align="center" style="padding-top:24px;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td style="background-color:#3B82F6; border-radius:6px; text-align:center;">
+                                  <a href="<%= qrCodeUrl %>"
+                                    style="display:inline-block; padding:10px 24px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none;">
+                                    ⬇ Download QR Code
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- App Download Section -->
+                  <tr>
+                    <td style="padding-bottom:32px;">
+                      <table cellpadding="0" cellspacing="0" border="0" width="100%"
+                        style="background-color:#F9FAFB; border-radius:12px; padding:32px; border:2px solid #E5E7EB;">
+                        
+                        <tr>
+                          <td style="padding-bottom:16px;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td valign="middle">
+                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" stroke="#374151" stroke-width="2" fill="none"/>
+                                    <path d="M9 18H15" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+                                  </svg>
+                                </td>
+                                <td width="12"></td>
+                                <td valign="middle">
+                                  <h3 style="margin:0; font-size:18px; font-weight:700; color:#1F2937;">Download the BethelFlow App</h3>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td style="font-size:15px; color:#6B7280; line-height:1.6; padding-bottom:24px;">
+                            This mobile app lets you stay connected, manage events, and access your QR code anytime. Available now on both iOS and Android.
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td align="center">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <!-- App Store -->
+                                <td style="padding-right:8px;">
+                                  <a href="<%= downloadUrl %>" target="_blank" style="text-decoration:none; display:block;">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="140" height="48"
+                                      style="background-color:#000000; border-radius:8px;">
+                                      <tr>
+                                        <td align="center" style="padding:0 12px;">
+                                          <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                              <td valign="middle" style="padding-right:8px;">
+                                                <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                  <path d="M18.71 14.77c-.04-3.2 2.61-4.74 2.73-4.82-1.49-2.18-3.8-2.47-4.62-2.51-1.97-.2-3.84 1.16-4.84 1.16-1 0-2.54-1.13-4.18-1.1-2.15.03-4.13 1.25-5.24 3.18-2.23 3.87-.57 9.61 1.6 12.76 1.07 1.54 2.34 3.28 4.01 3.22 1.63-.07 2.25-.97 4.22-.97 1.97 0 2.53.97 4.18.94 1.73-.03 2.84-1.6 3.91-3.16 1.23-1.8 1.74-3.54 1.77-3.63-.04-.01-3.39-1.3-3.54-5.07Z" fill="white"/>
+                                                  <path d="M15.88 4.09c.89-1.08 1.49-2.58 1.33-4.08-1.28.05-2.83.85-3.75 1.93-.82.95-1.54 2.47-1.35 3.93 1.43.11 2.89-.73 3.77-1.78Z" fill="white"/>
+                                                </svg>
+                                              </td>
+                                              <td valign="middle" align="left" style="font-size:10px; line-height:12px; color:#FFFFFF;">
+                                                <span style="display:block;">Download on the</span>
+                                                <span style="display:block; font-size:16px; font-weight:700;">App Store</span>
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </a>
+                                </td>
+
+                                <!-- Google Play -->
+                                <td style="padding-left:8px;">
+                                  <a href="<%= secondDownloadUrl %>" target="_blank" style="text-decoration:none; display:block;">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="155" height="48"
+                                      style="background-color:#000000; border-radius:8px;">
+                                      <tr>
+                                        <td align="center" style="padding:0 12px;">
+                                          <table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                              <td valign="middle" style="padding-right:8px;">
+                                                <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                  <path d="M0.475 0.397c-.15.154-.24.39-.24.7v22.1c0 .31.09.546.24.7l.037.034L13.26 13l.001-.293L.512.363.475.397Z" fill="url(#paint0_linear)"/>
+                                                  <path d="M17.49 17.135L13.26 13l-.001.293.001.293 4.23 4.135.095.054 6.5-3.69c1.43-.812 1.43-2.14 0-2.952l-6.5-3.69-.095.054 4.23 4.135v.293l-4.23 4.135Z" fill="url(#paint1_linear)"/>
+                                                  <path d="M17.585 17.081l-4.326-4.327-12.747 12.49c.475.502 1.26.564 2.145.01l14.928-8.173Z" fill="url(#paint2_linear)"/>
+                                                  <path d="M17.585 8.919L2.657.746C1.772.192.987.254.512.756L13.26 13.247l4.326-4.328Z" fill="url(#paint3_linear)"/>
+                                                  <defs>
+                                                    <linearGradient id="paint0_linear" x1="12.131" y1="24.149" x2="-4.645" y2="6.941" gradientUnits="userSpaceOnUse">
+                                                      <stop stop-color="#00A0FF"/>
+                                                      <stop offset="0.007" stop-color="#00A1FF"/>
+                                                      <stop offset="0.26" stop-color="#00BEFF"/>
+                                                      <stop offset="0.512" stop-color="#00D2FF"/>
+                                                      <stop offset="0.76" stop-color="#00DFFF"/>
+                                                      <stop offset="1" stop-color="#00E3FF"/>
+                                                    </linearGradient>
+                                                    <linearGradient id="paint1_linear" x1="24.475" y1="12.857" x2="-0.343" y2="12.857" gradientUnits="userSpaceOnUse">
+                                                      <stop stop-color="#FFE000"/>
+                                                      <stop offset="0.409" stop-color="#FFBD00"/>
+                                                      <stop offset="0.775" stop-color="#FFA500"/>
+                                                      <stop offset="1" stop-color="#FF9C00"/>
+                                                    </linearGradient>
+                                                    <linearGradient id="paint2_linear" x1="15.237" y1="10.562" x2="-7.514" y2="-12.772" gradientUnits="userSpaceOnUse">
+                                                      <stop stop-color="#FF3A44"/>
+                                                      <stop offset="1" stop-color="#C31162"/>
+                                                    </linearGradient>
+                                                    <linearGradient id="paint3_linear" x1="-2.743" y1="32.682" x2="7.417" y2="22.262" gradientUnits="userSpaceOnUse">
+                                                      <stop stop-color="#32A071"/>
+                                                      <stop offset="0.069" stop-color="#2DA771"/>
+                                                      <stop offset="0.476" stop-color="#15CF74"/>
+                                                      <stop offset="0.801" stop-color="#06E775"/>
+                                                      <stop offset="1" stop-color="#00F076"/>
+                                                    </linearGradient>
+                                                  </defs>
+                                                </svg>
+                                              </td>
+                                              <td valign="middle" align="left" style="font-size:10px; line-height:12px; color:#FFFFFF;">
+                                                <span style="display:block;">GET IT ON</span>
+                                                <span style="display:block; font-size:16px; font-weight:700;">Google Play</span>
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="font-size:15px; color:#6B7280; line-height:1.6; padding-bottom:32px; text-align:center;">
+                      If you have any questions or need help getting started, our support team is always happy to assist. Welcome aboard—together, we'll achieve amazing things!
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="font-size:16px; color:#3D3D3D; padding-bottom:10px;">
+                      Warm regards,
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-size:16px; color:#3D3D3D; padding-bottom:40px;">
+                      <%= organisationName %>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding-bottom:32px;">
+                      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td style="border-top:1px solid #E5E7EB;"></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td align="center" style="font-size:14px; color:#6B7280; line-height:1.6;">
+                      We can't wait to see all the amazing things you'll accomplish with us!
+                    </td>
+                  </tr>
+
+                </table>
+
+              </td>
+            </tr>
+
+            <%- include('internal-footer.ejs') %>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+
+</html>

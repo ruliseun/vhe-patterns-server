@@ -1,0 +1,275 @@
+openapi: 3.1.0
+info:
+  title: Permissions Endpoints
+  version: 1.0.0
+paths:
+  /permissions/new:
+    post:
+      tags:
+        - Permissions
+      summary: Create a permission
+      description: Creates a new permission with specified details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                permissionName:
+                  type: string
+                  description: Name of the permission
+                description:
+                  type: string
+                  description: Description of the permission (optional)
+              required:
+                - permissionName
+      responses:
+        200:
+          description: Permission created successfully
+        400:
+          description: Invalid permission details
+        401:
+          description: Unauthorized access
+        500:
+          description: Error creating permission
+
+  /permissions:
+    get:
+      tags:
+        - Permissions
+      summary: Get permissions
+      description: Retrieves a list of permissions. Requires SUPER_ADMIN or ADMIN role.
+      responses:
+        200:
+          description: Permissions retrieved successfully
+        401:
+          description: Unauthorized access
+        403:
+          description: Admin or super admin access with view permissions required
+        500:
+          description: Error retrieving permissions
+
+    delete:
+      tags:
+        - Permissions
+      summary: Delete a permission
+      description: Deletes a specific permission by ID. Requires SUPER_ADMIN role.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ID of the permission to delete
+              required:
+                - id
+      responses:
+        200:
+          description: Permission deleted successfully
+        400:
+          description: Invalid permission ID
+        401:
+          description: Unauthorized access
+        403:
+          description: Super admin access with delete permissions required
+        500:
+          description: Error deleting permission
+
+  /permissions/{id}:
+    patch:
+      tags:
+        - Permissions
+      summary: Update a permission
+      description: Updates a specific permission by ID. Requires SUPER_ADMIN role.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the permission to update
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Updated name of the permission (optional)
+                description:
+                  type: string
+                  description: Updated description of the permission (optional)
+      responses:
+        200:
+          description: Permission updated successfully
+        400:
+          description: Invalid permission ID or details
+        401:
+          description: Unauthorized access
+        403:
+          description: Super admin access with update permissions required
+        500:
+          description: Error updating permission
+
+  /permission_roles:
+    get:
+      tags:
+        - Permissions
+      summary: Get permission roles
+      description: Retrieves roles associated with permissions.
+      parameters:
+        - in: query
+          name: permissionName
+          schema:
+            type: string
+          required: false
+          description: Filter by permission name
+      responses:
+        '200':
+          description: Successful response
+
+  /role_permissions:
+    get:
+      tags:
+        - Permissions
+      summary: Get role permissions
+      description: Retrieves permissions associated with roles.
+      parameters:
+        - in: query
+          name: roleName
+          schema:
+            type: string
+          required: false
+          description: Filter by role name
+      responses:
+        '200':
+          description: Successful response
+
+  /matrix:
+    get:
+      tags:
+        - Permissions
+      summary: Get permission matrix
+      description: Returns a matrix of roles and their associated permissions.
+      responses:
+        '200':
+          description: Successful response
+
+  /unassigned_permissions:
+    get:
+      tags:
+        - Permissions
+      summary: Get unassigned permissions
+      description: Returns permissions that are not assigned to any role.
+      responses:
+        '200':
+          description: Successful response
+
+  /unassigned_roles:
+    get:
+      tags:
+        - Permissions
+      summary: Get roles with no permissions
+      description: Returns roles that have not been assigned any permissions.
+      responses:
+        '200':
+          description: Successful response
+
+  /update_profile_permissions:
+    post:
+      tags:
+        - Permissions
+      summary: Update profile permissions
+      description: Updates permissions assigned to profile types.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - permission
+                - profileTypes
+              properties:
+                permission:
+                  type: string
+                  description: A valid permission string
+                profileTypes:
+                  type: array
+                  items:
+                    type: string
+                  description: List of profile types to assign the permission to
+      responses:
+        '200':
+          description: Permissions updated successfully
+
+  /set_user_permission:
+    post:
+      tags:
+        - Permissions
+      summary: Assign permissions to a user
+      description: Assigns one or more permissions to a specific user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - permissions
+              properties:
+                userId:
+                  type: number
+                  description: Numeric ID of the user
+                permissions:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - permission
+                    properties:
+                      permission:
+                        type: string
+                      description:
+                        type: string
+                      expiredAt:
+                        type: string
+                        format: date-time
+      responses:
+        '200':
+          description: Permissions assigned successfully
+
+  /unset_user_permission:
+    post:
+      tags:
+        - Permissions
+      summary: Remove user permissions
+      description: Removes one or more permissions from a specific user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - permissions
+              properties:
+                userId:
+                  type: number
+                  description: Numeric ID of the user
+                permissions:
+                  type: array
+                  items:
+                    type: string
+                  description: List of permission strings to remove
+      responses:
+        '200':
+          description: Permissions removed successfully

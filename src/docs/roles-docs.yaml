@@ -1,0 +1,123 @@
+openapi: 3.1.0
+info:
+  title: Roles Endpoints
+  version: 1.0.0
+paths:
+  /roles/new:
+    post:
+      tags:
+        - Roles
+      summary: Create a role
+      description: Creates a new role with specified name and permissions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roleName:
+                  type: string
+                  description: Name of the role
+                permissions:
+                  type: array
+                  items:
+                    type: number
+                  description: List of permission IDs
+              required:
+                - roleName
+                - permissions
+      responses:
+        200:
+          description: Role created successfully
+        400:
+          description: Invalid role details
+        401:
+          description: Unauthorized access
+        500:
+          description: Error creating role
+
+  /roles:
+    get:
+      tags:
+        - Roles
+      summary: Get roles
+      description: Retrieves a list of roles. Requires SUPER_ADMIN or ADMIN role and Can_View_Roles permission.
+      responses:
+        200:
+          description: Roles retrieved successfully
+        401:
+          description: Unauthorized access
+        403:
+          description: Admin or super admin access with view roles permission required
+        500:
+          description: Error retrieving roles
+
+    delete:
+      tags:
+        - Roles
+      summary: Delete a role
+      description: Deletes a specific role by ID. Requires SUPER_ADMIN role and Can_Delete_Roles permission.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ID of the role to delete
+              required:
+                - id
+      responses:
+        200:
+          description: Role deleted successfully
+        400:
+          description: Invalid role ID
+        401:
+          description: Unauthorized access
+        403:
+          description: Super admin access with delete roles permission required
+        500:
+          description: Error deleting role
+
+  /roles/{id}:
+    patch:
+      tags:
+        - Roles
+      summary: Update a role
+      description: Updates a specific role by ID. Requires SUPER_ADMIN role and Can_Update_Roles permission.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the role to update
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Updated name of the role (optional)
+                permissions:
+                  type: array
+                  items:
+                    type: number
+                  description: Updated list of permission IDs (optional, requires name)
+      responses:
+        200:
+          description: Role updated successfully
+        400:
+          description: Invalid role ID or details
+        401:
+          description: Unauthorized access
+        403:
+          description: Super admin access with update roles permission required
+        500:
+          description: Error updating role

@@ -1,0 +1,20 @@
+.idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/
+dist/
+log/activity-dev.log
+.env
+.qodo
+
+# Sentry Config File
+.sentryclirc
+
+# Certificates
+certs/
+.env
+*.pem
+*.crt
+*.key

@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+  vhepatterns-container:
+    image: ruliseun/vhepatternsprod:latest
+    ports:
+      - 3012:3012
+      - 1025:1025
+      - 1080:1080
+    environment:
+      - DOCKER_OPTS=--ipv6=false
+      - REDIS_PORT=6379
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+          cpus: '0.3'
+    networks:
+      - app-network
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+          cpus: '0.2'
+    networks:
+      - app-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  redis_data:
+
+networks:
+  app-network:
+    driver: bridge
