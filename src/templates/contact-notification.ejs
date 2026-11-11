@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Contact Request</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f6f4f3;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f6f4f3;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #efe7e4;">
+            <tr>
+              <td style="background-color:#1a1a1a;padding:24px 32px;">
+                <span style="color:#ffffff;font-size:18px;font-weight:600;letter-spacing:0.3px;">VhePatterns</span>
+                <span style="color:#f4a8a0;font-size:12px;display:block;margin-top:4px;letter-spacing:1.5px;text-transform:uppercase;">New contact request</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 32px 8px;">
+                <p style="margin:0;color:#474747;font-size:14px;line-height:1.6;">
+                  A new message came in through the website contact form. Details below.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;width:130px;vertical-align:top;">Name</td>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#1a1a1a;font-size:14px;font-weight:600;"><%= firstName %> <%= lastName %></td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;vertical-align:top;">Email</td>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;font-size:14px;">
+                      <a href="mailto:<%= email %>" style="color:#e2604f;text-decoration:none;"><%= email %></a>
+                    </td>
+                  </tr>
+                  <% if (phone) { %>
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;vertical-align:top;">Phone</td>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#1a1a1a;font-size:14px;"><%= phone %></td>
+                  </tr>
+                  <% } %>
+                  <% if (company) { %>
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;vertical-align:top;">Company</td>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#1a1a1a;font-size:14px;"><%= company %></td>
+                  </tr>
+                  <% } %>
+                  <% if (brand) { %>
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;vertical-align:top;">Brand</td>
+                    <td style="padding:10px 0;border-bottom:1px solid #f0eeec;color:#1a1a1a;font-size:14px;"><%= brand %></td>
+                  </tr>
+                  <% } %>
+                </table>
+              </td>
+            </tr>
+            <% if (message) { %>
+            <tr>
+              <td style="padding:0 32px 8px;">
+                <p style="margin:0 0 8px;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;">Message</p>
+                <div style="background-color:#faf8f7;border:1px solid #f0eeec;border-radius:10px;padding:16px;color:#474747;font-size:14px;line-height:1.7;white-space:pre-line;"><%= message %></div>
+              </td>
+            </tr>
+            <% } %>
+            <tr>
+              <td style="padding:20px 32px 28px;">
+                <p style="margin:0;color:#ababab;font-size:12px;line-height:1.6;">
+                  Received <%= receivedAt %> · Reply directly to this sender from the admin portal.
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:16px 0 0;color:#ababab;font-size:11px;text-align:center;">
+            VhePatterns — Home of Unique Creative Designs
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

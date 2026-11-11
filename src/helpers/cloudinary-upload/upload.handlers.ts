@@ -48,10 +48,22 @@ function designFilesUploadHandler(req: Request, res: Response, next: NextFunctio
   });
 }
 
+function brandFilesUploadHandler(req: Request, res: Response, next: NextFunction) {
+  UploadFields.brandFilesUpload(req, res, async (err) => {
+    if (err) {
+      Logger.error(err?.message || err || "Error uploading files");
+      return res.status(500).json({ status: "Failed", message: err?.message || "Failed to upload files" });
+    }
+
+    return next();
+  });
+}
+
 const UploadHandler = {
   singleFileUploadHandler,
   multiFileUploadHandler,
   designFilesUploadHandler,
+  brandFilesUploadHandler,
 };
 
 export default UploadHandler;

@@ -36,6 +36,9 @@ export class Design {
   @Column({ type: "int" })
   nonExclusivePrice: number;
 
+  @Column({ type: "int", nullable: true })
+  categoryId: number;
+
   @ManyToOne(() => Category, (category) => category.designs, { nullable: true, onDelete: "SET NULL" })
   @JoinColumn({ name: "categoryId" })
   category: Category;

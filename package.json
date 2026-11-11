@@ -8,7 +8,7 @@
     "start": "node ./dist/app.js",
     "push:compile": "tsc -w",
     "compile": "rimraf ./dist/migration/* && tsc -p . -w",
-    "build": "babel src --out-dir dist --extensions \".ts,.tsx\"",
+    "build": "babel src --out-dir dist --extensions \".ts,.tsx\" && mkdir -p dist/templates && cp src/templates/*.ejs dist/templates/",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "prettier": "prettier --write src/**/*.ts",

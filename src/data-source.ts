@@ -20,6 +20,8 @@ import { Admin } from "./entity/Admin";
 import { AdminActivityLog } from "./entity/AdminActivityLog";
 import { Design } from "./entity/Design";
 import { Category } from "./entity/Category";
+import { Brand } from "./entity/Brand";
+import { ContactRequest } from "./entity/ContactRequest";
 
 interface IDbConfig {
   host: string;
@@ -29,7 +31,19 @@ interface IDbConfig {
   database: string;
 }
 
-const dbEntities = [User, Role, Permission, RefreshToken, UserPermission, Admin, AdminActivityLog, Design, Category];
+const dbEntities = [
+  User,
+  Role,
+  Permission,
+  RefreshToken,
+  UserPermission,
+  Admin,
+  AdminActivityLog,
+  Design,
+  Category,
+  Brand,
+  ContactRequest,
+];
 
 let dbConfig: IDbConfig = {} as IDbConfig;
 
