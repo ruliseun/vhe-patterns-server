@@ -53,7 +53,6 @@ router.delete(
   logAuditTrails,
   validateKey,
   authGuard([ProfileTypeEnum.SUPER_ADMIN]),
-  permissionsGuard([PermissionsEnum.Can_Delete_Permissions]),
   validateCustomRequest(["id"]),
   validate,
   PermissionController.deletedPermission,
