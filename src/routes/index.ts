@@ -11,6 +11,8 @@ import contactRoutes from "./contact.route";
 import customPrintRoutes from "./custom-print.route";
 import newsletterRoutes from "./newsletter.route";
 import blogRoutes from "./blog.route";
+import cartRoutes from "./cart.route";
+import promoBarRoutes from "./promo-bar.route";
 
 export default function initializeRoutes(app: { use: (arg0: string, arg1: any) => void }) {
   app.use(`/vhepatterns/api/${appVersion}/ping`, pingRoutes);
@@ -25,4 +27,6 @@ export default function initializeRoutes(app: { use: (arg0: string, arg1: any) =
   app.use(`/vhepatterns/api/${appVersion}/custom-print`, customPrintRoutes);
   app.use(`/vhepatterns/api/${appVersion}/newsletter`, newsletterRoutes);
   app.use(`/vhepatterns/api/${appVersion}/blogs`, blogRoutes);
+  app.use(`/vhepatterns/api/${appVersion}/cart`, cartRoutes);
+  app.use(`/vhepatterns/api/${appVersion}/promo-bar`, promoBarRoutes);
 }

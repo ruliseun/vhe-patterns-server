@@ -25,6 +25,10 @@ import { ContactRequest } from "./entity/ContactRequest";
 import { CustomPrintRequest } from "./entity/CustomPrintRequest";
 import { NewsletterSubscriber } from "./entity/NewsletterSubscriber";
 import { BlogPost } from "./entity/BlogPost";
+import { GuestSession } from "./entity/GuestSession";
+import { Cart } from "./entity/Cart";
+import { CartItem } from "./entity/CartItem";
+import { PromoBar } from "./entity/PromoBar";
 
 interface IDbConfig {
   host: string;
@@ -49,6 +53,10 @@ const dbEntities = [
   CustomPrintRequest,
   NewsletterSubscriber,
   BlogPost,
+  GuestSession,
+  Cart,
+  CartItem,
+  PromoBar,
 ];
 
 let dbConfig: IDbConfig = {} as IDbConfig;
