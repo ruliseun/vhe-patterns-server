@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= success ? "You're unsubscribed" : "Unsubscribe link invalid" %> — VhePatterns</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f6f4f3;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f6f4f3;padding:48px 16px;min-height:100vh;">
+      <tr>
+        <td align="center" valign="top">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #efe7e4;">
+            <tr>
+              <td style="background-color:#1a1a1a;padding:24px 32px;">
+                <span style="color:#ffffff;font-size:18px;font-weight:600;letter-spacing:0.3px;">VhePatterns</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:32px;">
+                <% if (success) { %>
+                  <h1 style="margin:0 0 12px;color:#1a1a1a;font-size:20px;">You're unsubscribed</h1>
+                  <p style="margin:0;color:#474747;font-size:14px;line-height:1.7;">
+                    <% if (email) { %><strong style="color:#1a1a1a;"><%= email %></strong> won't<% } else { %>You won't<% } %>
+                    receive any more newsletter emails from us. Changed your mind? You can sign up again any time from our website.
+                  </p>
+                <% } else { %>
+                  <h1 style="margin:0 0 12px;color:#1a1a1a;font-size:20px;">This link isn't valid</h1>
+                  <p style="margin:0;color:#474747;font-size:14px;line-height:1.7;">
+                    We couldn't unsubscribe you with this link. Email
+                    <a href="mailto:support@vhepatterns.com" style="color:#e2604f;text-decoration:none;">support@vhepatterns.com</a>
+                    and we'll remove you from the list.
+                  </p>
+                <% } %>
+                <p style="margin:24px 0 0;">
+                  <a href="<%= siteUrl %>" style="display:inline-block;background-color:#e2604f;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 20px;border-radius:10px;">Visit VhePatterns</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

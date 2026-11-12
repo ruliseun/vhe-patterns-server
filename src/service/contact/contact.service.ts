@@ -1,6 +1,5 @@
 import ejs from "ejs";
 import { marked } from "marked";
-import path from "path";
 import { ILike } from "typeorm";
 import { PAGINATION } from "../../config/constants";
 import { ContactRequest } from "../../entity/ContactRequest";
@@ -9,9 +8,9 @@ import { IContactQuery, IContactReply, ICreateContactRequest } from "../../inter
 import ABSTRACT_SERVICE, { createError } from "../abstractService/abstractService";
 import EmailService from "../email/email.service";
 import Logger from "../../utils/logger";
+import { templatePath } from "../../helpers/templates";
 
 const SUPPORT_EMAIL = "support@vhepatterns.com";
-const TEMPLATES_DIR = path.join(__dirname, "../../templates");
 
 async function createContactRequest(data: ICreateContactRequest) {
   const request = await ABSTRACT_SERVICE.createData(ContactRequest, {
@@ -23,7 +22,7 @@ async function createContactRequest(data: ICreateContactRequest) {
     const receivedAt = new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
     const templateData = { ...request, receivedAt };
 
-    const html = (await ejs.renderFile(path.join(TEMPLATES_DIR, "contact-notification.ejs"), templateData)) as string;
+    const html = (await ejs.renderFile(templatePath("contact-notification.ejs"), templateData)) as string;
     const text = [
       `New contact request from ${request.firstName} ${request.lastName}`,
       `Email: ${request.email}`,
@@ -93,8 +92,8 @@ async function getContactRequest(id: number) {
 async function replyToContactRequest(id: number, data: IContactReply) {
   const request = await getContactRequest(id);
 
-  const body = marked.parse(data.message, { async: false }) as string;
-  const html = (await ejs.renderFile(path.join(TEMPLATES_DIR, "contact-reply.ejs"), {
+  const body = marked.parse(data.message, { async: false, breaks: true }) as string;
+  const html = (await ejs.renderFile(templatePath("contact-reply.ejs"), {
     subject: data.subject,
     firstName: request.firstName,
     body,

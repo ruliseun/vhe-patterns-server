@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= subject %></title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f6f4f3;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f6f4f3;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #efe7e4;">
+            <tr>
+              <td style="background-color:#1a1a1a;padding:24px 32px;">
+                <span style="color:#ffffff;font-size:18px;font-weight:600;letter-spacing:0.3px;">VhePatterns</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 32px 8px;color:#474747;font-size:14px;line-height:1.8;">
+                <%- body %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 32px 28px;">
+                <p style="margin:0;color:#474747;font-size:14px;line-height:1.7;">
+                  Warm regards,<br />
+                  <span style="color:#1a1a1a;font-weight:600;">The VhePatterns Team</span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 32px;background-color:#faf8f7;border-top:1px solid #f0eeec;">
+                <p style="margin:0;color:#ababab;font-size:11px;line-height:1.6;">
+                  You're receiving this email because you subscribed to the VhePatterns newsletter. Questions? Reach us any time at
+                  <a href="mailto:support@vhepatterns.com" style="color:#e2604f;text-decoration:none;">support@vhepatterns.com</a>.
+                  <br />
+                  <a href="<%= unsubscribeUrl %>" style="color:#8a8a8a;text-decoration:underline;">Unsubscribe</a> from these emails.
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:16px 0 0;color:#ababab;font-size:11px;text-align:center;">
+            VhePatterns — Home of Unique Creative Designs
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

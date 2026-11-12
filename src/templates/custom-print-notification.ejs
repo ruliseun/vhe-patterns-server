@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Custom Print Request</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f6f4f3;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+    <%
+      const label = "padding:10px 0;border-bottom:1px solid #f0eeec;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;width:150px;vertical-align:top;";
+      const value = "padding:10px 0;border-bottom:1px solid #f0eeec;color:#1a1a1a;font-size:14px;";
+      const sectionTitle = "margin:0 0 4px;color:#1a1a1a;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;";
+      const block = "background-color:#faf8f7;border:1px solid #f0eeec;border-radius:10px;padding:16px;color:#474747;font-size:14px;line-height:1.7;white-space:pre-line;word-break:break-word;";
+      const contactRows = [["Brand", brand], ["Phone", phone], ["Alt. phone", altPhone]].filter((row) => row[1]);
+      const projectRows = [["Service", service], ["Quantity", quantity], ["Timeline", timeline], ["Fabric", fabric], ["Budget", budget]].filter((row) => row[1]);
+    %>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f6f4f3;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #efe7e4;">
+            <tr>
+              <td style="background-color:#1a1a1a;padding:24px 32px;">
+                <span style="color:#ffffff;font-size:18px;font-weight:600;letter-spacing:0.3px;">VhePatterns</span>
+                <span style="color:#f4a8a0;font-size:12px;display:block;margin-top:4px;letter-spacing:1.5px;text-transform:uppercase;">New custom print request</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 32px 8px;">
+                <p style="margin:0;color:#474747;font-size:14px;line-height:1.6;">
+                  <strong style="color:#1a1a1a;"><%= firstName %> <%= lastName %></strong> submitted a custom print request
+                  for <strong style="color:#1a1a1a;"><%= quantity %> × <%= service %></strong>, needed within
+                  <strong style="color:#1a1a1a;"><%= timeline %></strong>. Full details below.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:20px 32px 4px;"><p style="<%= sectionTitle %>">Customer</p></td>
+            </tr>
+            <tr>
+              <td style="padding:0 32px 8px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                  <tr>
+                    <td style="<%= label %>">Name</td>
+                    <td style="<%= value %>font-weight:600;"><%= firstName %> <%= lastName %></td>
+                  </tr>
+                  <tr>
+                    <td style="<%= label %>">Email</td>
+                    <td style="<%= value %>"><a href="mailto:<%= email %>" style="color:#e2604f;text-decoration:none;"><%= email %></a></td>
+                  </tr>
+                  <% contactRows.forEach(function (row) { %>
+                  <tr>
+                    <td style="<%= label %>"><%= row[0] %></td>
+                    <td style="<%= value %>"><%= row[1] %></td>
+                  </tr>
+                  <% }) %>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:20px 32px 4px;"><p style="<%= sectionTitle %>">Project</p></td>
+            </tr>
+            <tr>
+              <td style="padding:0 32px 8px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                  <% projectRows.forEach(function (row) { %>
+                  <tr>
+                    <td style="<%= label %>"><%= row[0] %></td>
+                    <td style="<%= value %>"><%= row[1] %></td>
+                  </tr>
+                  <% }) %>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:16px 32px 8px;">
+                <p style="margin:0 0 8px;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;">Description</p>
+                <div style="<%= block %>"><%= description %></div>
+              </td>
+            </tr>
+
+            <% if (references) { %>
+            <tr>
+              <td style="padding:16px 32px 8px;">
+                <p style="margin:0 0 8px;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;">Reference links / notes</p>
+                <div style="<%= block %>"><%= references %></div>
+              </td>
+            </tr>
+            <% } %>
+
+            <% if (images && images.length) { %>
+            <tr>
+              <td style="padding:16px 32px 8px;">
+                <p style="margin:0 0 8px;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;">Reference images (<%= images.length %>)</p>
+                <div>
+                  <% images.forEach(function (image) { %>
+                  <a href="<%= image %>" style="display:inline-block;margin:0 8px 8px 0;text-decoration:none;">
+                    <img src="<%= image %>" alt="Reference image" width="120" height="120" style="display:block;width:120px;height:120px;object-fit:cover;border-radius:8px;border:1px solid #f0eeec;" />
+                  </a>
+                  <% }) %>
+                </div>
+              </td>
+            </tr>
+            <% } %>
+
+            <% if (message) { %>
+            <tr>
+              <td style="padding:16px 32px 8px;">
+                <p style="margin:0 0 8px;color:#8a8a8a;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;">Additional message</p>
+                <div style="<%= block %>"><%= message %></div>
+              </td>
+            </tr>
+            <% } %>
+
+            <tr>
+              <td style="padding:20px 32px 28px;">
+                <p style="margin:0;color:#ababab;font-size:12px;line-height:1.6;">
+                  Received <%= receivedAt %> · Track progress and update the status from the admin portal.
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:16px 0 0;color:#ababab;font-size:11px;text-align:center;">
+            VhePatterns — Home of Unique Creative Designs
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

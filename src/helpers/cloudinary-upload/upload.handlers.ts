@@ -59,11 +59,51 @@ function brandFilesUploadHandler(req: Request, res: Response, next: NextFunction
   });
 }
 
+function blogFilesUploadHandler(req: Request, res: Response, next: NextFunction) {
+  UploadFields.blogFilesUpload(req, res, async (err) => {
+    if (err) {
+      Logger.error(err?.message || err || "Error uploading files");
+      return res.status(500).json({ status: "Failed", message: err?.message || "Failed to upload files" });
+    }
+
+    return next();
+  });
+}
+
+function blogImageUploadHandler(req: Request, res: Response, next: NextFunction) {
+  UploadFields.blogImageUpload(req, res, async (err) => {
+    if (err) {
+      Logger.error(err?.message || err || "Error uploading files");
+      return res.status(500).json({ status: "Failed", message: err?.message || "Failed to upload files" });
+    }
+
+    return next();
+  });
+}
+
+function customPrintImagesUploadHandler(req: Request, res: Response, next: NextFunction) {
+  UploadFields.customPrintImagesUpload(req, res, async (err) => {
+    if (err) {
+      Logger.error(err?.message || err || "Error uploading files");
+      return res.status(ResponseCodeEnum.BAD_REQUEST).json({
+        status: ResponseCodeEnum.BAD_REQUEST,
+        message: err?.message || "Failed to upload images",
+        data: null,
+      });
+    }
+
+    return next();
+  });
+}
+
 const UploadHandler = {
   singleFileUploadHandler,
   multiFileUploadHandler,
   designFilesUploadHandler,
   brandFilesUploadHandler,
+  customPrintImagesUploadHandler,
+  blogFilesUploadHandler,
+  blogImageUploadHandler,
 };
 
 export default UploadHandler;

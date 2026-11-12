@@ -33,7 +33,11 @@ export const upload = () =>
     limits: { fileSize: 10000000 }, // 10mb
   });
 
-const uploadFile = async (file: Express.Multer.File) => {
+interface IUploadOptions {
+  crop?: boolean;
+}
+
+const uploadFile = async (file: Express.Multer.File, { crop = true }: IUploadOptions = {}) => {
   try {
     const fileUpload = await new Promise<UploadApiResponse>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream({ folder: "vhe-patterns" }, (error, result) => {
@@ -53,12 +57,17 @@ const uploadFile = async (file: Express.Multer.File) => {
           quality: "auto",
           fetch_format: "auto",
         },
-        {
-          height: 1200,
-          width: 1200,
-          crop: "fill",
-          gravity: "auto",
-        },
+        crop
+          ? {
+              height: 1200,
+              width: 1200,
+              crop: "fill",
+              gravity: "auto",
+            }
+          : {
+              width: 1600,
+              crop: "limit",
+            },
       ],
     });
 
@@ -73,10 +82,10 @@ const uploadFile = async (file: Express.Multer.File) => {
   }
 };
 
-const uploadFileArray = async (files: any) => {
+const uploadFileArray = async (files: any, options?: IUploadOptions) => {
   const uploadedFiles = [];
   for (const file of files) {
-    const result = await uploadFile(file);
+    const result = await uploadFile(file, options);
     if (result.status) {
       uploadedFiles.push({ location: result.location, fileName: result.fileName });
     }

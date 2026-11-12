@@ -22,6 +22,9 @@ import { Design } from "./entity/Design";
 import { Category } from "./entity/Category";
 import { Brand } from "./entity/Brand";
 import { ContactRequest } from "./entity/ContactRequest";
+import { CustomPrintRequest } from "./entity/CustomPrintRequest";
+import { NewsletterSubscriber } from "./entity/NewsletterSubscriber";
+import { BlogPost } from "./entity/BlogPost";
 
 interface IDbConfig {
   host: string;
@@ -43,6 +46,9 @@ const dbEntities = [
   Category,
   Brand,
   ContactRequest,
+  CustomPrintRequest,
+  NewsletterSubscriber,
+  BlogPost,
 ];
 
 let dbConfig: IDbConfig = {} as IDbConfig;

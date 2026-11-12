@@ -8,6 +8,9 @@ import designRoutes from "./design.route";
 import categoryRoutes from "./category.route";
 import brandRoutes from "./brand.route";
 import contactRoutes from "./contact.route";
+import customPrintRoutes from "./custom-print.route";
+import newsletterRoutes from "./newsletter.route";
+import blogRoutes from "./blog.route";
 
 export default function initializeRoutes(app: { use: (arg0: string, arg1: any) => void }) {
   app.use(`/vhepatterns/api/${appVersion}/ping`, pingRoutes);
@@ -19,4 +22,7 @@ export default function initializeRoutes(app: { use: (arg0: string, arg1: any) =
   app.use(`/vhepatterns/api/${appVersion}/designs`, designRoutes);
   app.use(`/vhepatterns/api/${appVersion}/brands`, brandRoutes);
   app.use(`/vhepatterns/api/${appVersion}/contact`, contactRoutes);
+  app.use(`/vhepatterns/api/${appVersion}/custom-print`, customPrintRoutes);
+  app.use(`/vhepatterns/api/${appVersion}/newsletter`, newsletterRoutes);
+  app.use(`/vhepatterns/api/${appVersion}/blogs`, blogRoutes);
 }

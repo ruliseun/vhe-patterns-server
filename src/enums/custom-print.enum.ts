@@ -1,0 +1,7 @@
+export enum CustomPrintStatusEnum {
+  PENDING = "PENDING",
+  ONGOING = "ONGOING",
+  PAUSED = "PAUSED",
+  COMPLETED = "COMPLETED",
+  CANCELLED = "CANCELLED",
+}
